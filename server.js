@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://agenda-frontend-alpha.vercel.app/',
+  origin: process.env.FRONTEND_URL || 'https://agenda-frontend-alpha.vercel.app',
   credentials: true,
 }));
 app.use(express.json());
