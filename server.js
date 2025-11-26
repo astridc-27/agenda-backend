@@ -35,4 +35,6 @@ app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server corriendo en el puerto ${PORT}`);
+  console.log("BACKEND_URL ES:", process.env.BACKEND_URL);
 });
+
