@@ -19,7 +19,7 @@ connectDB();
 
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'https://agenda-frontend-alpha.vercel.app',
-  credentials: true,
+  credentials: true
 }));
 app.use(express.json());
 
