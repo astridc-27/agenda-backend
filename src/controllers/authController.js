@@ -35,6 +35,11 @@ export const verifyEmailController = async (req, res, next) => {
         res.redirect(302, redirectUrl); 
 
     } catch (error) {
+
+      // AÑADE ESTAS LÍNEAS PARA DEBUG:
+        console.error('VERIFICACIÓN DE EMAIL FALLIDA:', error); 
+        console.error('MENSAJE DEL ERROR:', error.message);
+        
         const errorRedirectUrl = `${process.env.FRONTEND_URL}/verification-error?message=${encodeURIComponent(error.message)}`;
         res.redirect(302, errorRedirectUrl);
     }
