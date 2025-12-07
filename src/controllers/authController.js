@@ -30,7 +30,6 @@ export const verifyEmailController = async (req, res, next) => {
         
         await authService.verifyEmail(token);
         
-        // CORRECCIÓN CRUCIAL: Redirige a la ruta raíz (/)
         const redirectUrl = `${process.env.FRONTEND_URL}/?verified=true`; 
         
         res.redirect(302, redirectUrl); 
@@ -40,7 +39,6 @@ export const verifyEmailController = async (req, res, next) => {
         console.error('VERIFICACIÓN DE EMAIL FALLIDA:', error); 
         console.error('MENSAJE DEL ERROR:', error.message);
         
-        // CORRECCIÓN CRUCIAL: Redirige a la ruta raíz (/) en caso de error
         const errorMessage = encodeURIComponent(error.message);
         const errorRedirectUrl = `${process.env.FRONTEND_URL}/?error=true&message=${errorMessage}`;
         

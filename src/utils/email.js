@@ -1,11 +1,9 @@
 import { Resend } from 'resend';
 
-// Inicializa Resend. Utilizará automáticamente la variable RESEND_API_KEY.
 const resend = new Resend(); 
 
 export const sendVerificationEmail = async (user, verificationToken) => {
     
-    // BACKEND_URL ya está configurada en Render
     const verificationUrl = `${process.env.BACKEND_URL}/api/auth/verify-email?token=${verificationToken}`;
 
     const htmlContent = `
@@ -17,7 +15,6 @@ export const sendVerificationEmail = async (user, verificationToken) => {
 
     try {
         const { data, error } = await resend.emails.send({
-            // Usará el valor de la variable EMAIL_FROM de Render: 'Agenda de Tareas <caceres.astrid27@gmail.com>'
             from: process.env.EMAIL_FROM, 
             to: user.email,
             subject: 'Verificación de Correo Electrónico para Agenda de Tareas',
@@ -26,7 +23,6 @@ export const sendVerificationEmail = async (user, verificationToken) => {
 
         if (error) {
             console.error(`Error al enviar email a ${user.email} con Resend:`, error);
-            // Esto es crucial para que el registro falle si el correo no se envía
             throw new Error(`Fallo al enviar correo: ${error.message}`); 
         } else {
             console.log(`Email de verificación enviado a ${user.email}. ID de Resend: ${data.id}`);
@@ -34,8 +30,6 @@ export const sendVerificationEmail = async (user, verificationToken) => {
 
     } catch (error) {
         console.error(`Error de Resend (Try/Catch) al enviar email a ${user.email}:`, error);
-        throw error; // Propagar el error para que el endpoint de registro pueda manejarlo
+        throw error; 
     }
 };
-
-// Se elimina la función getTransporter, ya que no se usa Nodemailer.
