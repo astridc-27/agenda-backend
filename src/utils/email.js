@@ -6,7 +6,7 @@ const resend = new Resend();
 export const sendVerificationEmail = async (user, verificationToken) => {
     
     // BACKEND_URL ya está configurada en Render
-    const verificationUrl = `${process.env.BACKEND_URL}/api/auth/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${process.env.BACKEND_URL}/verify-email?token=${verificationToken}`;
 
     const htmlContent = `
         <h2>Hola ${user.name},</h2>
