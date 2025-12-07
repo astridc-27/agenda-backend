@@ -66,6 +66,7 @@ export const loginUser = async (email, password) => {
 
 
 export const verifyEmail = async (token) => {
+    console.log('Token recibido para búsqueda:', token);
     const user = await userRepository.findUserByVerificationToken(token);
     
     if (!user) {
