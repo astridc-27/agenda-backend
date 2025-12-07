@@ -30,26 +30,28 @@ export const verifyEmailController = async (req, res, next) => {
         
         await authService.verifyEmail(token);
         
-        const redirectUrl = `${process.env.FRONTEND_URL}/login?verified=true`; 
+        // CORRECCIÓN CRUCIAL: Redirige a la ruta raíz (/)
+        const redirectUrl = `${process.env.FRONTEND_URL}/?verified=true`; 
         
         res.redirect(302, redirectUrl); 
 
     } catch (error) {
 
-      // AÑADE ESTAS LÍNEAS PARA DEBUG:
         console.error('VERIFICACIÓN DE EMAIL FALLIDA:', error); 
         console.error('MENSAJE DEL ERROR:', error.message);
         
+        // CORRECCIÓN CRUCIAL: Redirige a la ruta raíz (/) en caso de error
         const errorMessage = encodeURIComponent(error.message);
-        const errorRedirectUrl = `${process.env.FRONTEND_URL}/login?error=true&message=${errorMessage}`;
+        const errorRedirectUrl = `${process.env.FRONTEND_URL}/?error=true&message=${errorMessage}`;
+        
         res.redirect(302, errorRedirectUrl);
     }
 };
 
 export const getProfile = async (req, res, next) => {
-  try {
-    res.json(req.user);
-  } catch (error) {
-    next(error);
-  }
+  try {
+    res.json(req.user);
+  } catch (error) {
+    next(error);
+  }
 };
